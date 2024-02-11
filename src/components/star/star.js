@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import { FaStar } from "react-icons/fa"
+import "./style.css"
 
 const Star = ({ NoOfStars = 5 }) => {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
 
     const handleClick = (starId) => {
-
+        setRating(starId);
     }
 
     const handleMouseMove = (starId) => {
-
+        setHover(starId);
     }
 
-    const handleMouseLeave = (starId) => {
-
+    const handleMouseLeave = () => {
+        setHover(rating);
     }
 
     return (
@@ -23,11 +24,13 @@ const Star = ({ NoOfStars = 5 }) => {
                 [...Array(NoOfStars)].map((_, index) => {
                     index += 1
                     return (
-                        <FaStar 
-                        onClick={() => handleClick(index)}
-                        onMouseMove={() => handleMouseMove(index)}
-                        onMouseLeave={() => handleMouseLeave(index)}
-                        size={40}
+                        <FaStar
+                        key={index}
+                        className={index <= (hover || rating) ? 'active' : 'inActive'}
+                            onClick={() => handleClick(index)}
+                            onMouseMove={() => handleMouseMove(index)}
+                            onMouseLeave={() => handleMouseLeave(index)}
+                            size={40}
                         />
                     )
                 })
